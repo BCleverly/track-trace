@@ -19,7 +19,8 @@ This is an open source MIT licensed website to allow for easy track and trace fo
 1. Duplicated the `.env.example` file and add the database connection details and make sure `APP_URL` is set to the correct domain
    1. If you want a custom visitor retention period, set `VISITOR_RETENTION_PERIOD` to the number of days that's required in your country/county.
 1. `composer install` and `npm install` then `npm run production`
-1. Run the database migrations `php aritsan migrate`
+1. Run the database migrations `php artisan migrate`
+1. Generate an application key `php artisan key:generate` 
 1. Add a user via the command `php artisan user:create` You will be prompted for fields
 1. Add the following supervisor script to your system if you're on a *nix machine, see normal [Laravel instructions](https://laravel.com/docs/8.x/queues#supervisor-configuration)
 ```
