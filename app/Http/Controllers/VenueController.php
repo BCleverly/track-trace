@@ -80,7 +80,7 @@ class VenueController extends Controller
      */
     public function edit(Venue $venue)
     {
-        //
+        return view('venue.edit', compact('venue'));
     }
 
     /**
@@ -92,6 +92,13 @@ class VenueController extends Controller
      */
     public function update(VenueUpdateRequest $request, Venue $venue)
     {
+        $venue->update(
+            [
+                'name' => $request->validated()['name'],
+                'active' => $request->has('active') ?? false,
+            ]
+        );
+
         return response()->redirectToRoute('dashboard.venue.index')->with('status', 'Venue updated.');
     }
 
