@@ -27,8 +27,8 @@ class LogoUploadRequest extends FormRequest
             'logo' => [
                 'required',
                 'image',
-                'mimes:png'
-            ]
+                'mimes:png',
+            ],
         ];
     }
 }

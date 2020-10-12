@@ -18,12 +18,11 @@ class PageController extends Controller
 
         $venues = Venue::active()->get();
 
-        $qrCodePath = $venue !== null ? storage_path('app/public/venues/' . $venue->slug . '.svg') : storage_path(
+        $qrCodePath = $venue !== null ? storage_path('app/public/venues/'.$venue->slug.'.svg') : storage_path(
             'app/public/qrcode.svg'
         );
 
-        $qrPublicPath = $venue !== null ? asset('storage/venues/' . $venue->slug . '.svg') : asset('storage/qrcode.svg');
-
+        $qrPublicPath = $venue !== null ? asset('storage/venues/'.$venue->slug.'.svg') : asset('storage/qrcode.svg');
 
         return view('welcome', compact('venues', 'venue', 'qrCodePath', 'qrPublicPath'));
     }

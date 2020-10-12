@@ -7,7 +7,6 @@ use App\Http\Requests\VenueUpdateRequest;
 use App\Models\Venue;
 use App\Models\Visitor;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class VenueController extends Controller
 {
@@ -19,6 +18,7 @@ class VenueController extends Controller
     public function index()
     {
         $venues = Venue::paginate(25);
+
         return view('venue.index', compact('venues'));
     }
 
@@ -43,7 +43,7 @@ class VenueController extends Controller
         $venue = Venue::create(
             [
                 'name' => $request->get('name'),
-                'active' => $request->has('active') ?? false
+                'active' => $request->has('active') ?? false,
             ]
         );
 
@@ -68,6 +68,7 @@ class VenueController extends Controller
                 }
             );
         $visitorsToday = Visitor::todayCount();
+
         return response()->view('venue.show', compact('venue', 'visitorDays', 'visitorsToday'));
     }
 
@@ -103,6 +104,7 @@ class VenueController extends Controller
     public function destroy(Venue $venue)
     {
         $venue->delete();
+
         return response()->redirectToRoute('dashboard.venue.index')->with('status', 'Venue deleted.');
     }
 }

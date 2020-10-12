@@ -23,7 +23,7 @@ class VenueFactory extends Factory
     {
         return [
             'name' => $this->faker->company,
-            'active' => $this->faker->boolean
+            'active' => $this->faker->boolean,
         ];
     }
 }

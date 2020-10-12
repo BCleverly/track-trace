@@ -15,7 +15,7 @@ class Visitor extends Model
         'email',
         'phone',
         'postcode',
-        'extra_guests'
+        'extra_guests',
     ];
 
     public function scopeToday($query)
@@ -30,10 +30,11 @@ class Visitor extends Model
 
     public function maskedEmail()
     {
-        list($first, $last) = explode('@', $this->attributes['email']);
-        $first = str_replace(substr($first, '3'), str_repeat('*', strlen($first)-3), $first);
+        [$first, $last] = explode('@', $this->attributes['email']);
+        $first = str_replace(substr($first, '3'), str_repeat('*', strlen($first) - 3), $first);
         $last = explode('.', $last);
-        $last_domain = str_replace(substr($last['0'], '1'), str_repeat('*', strlen($last['0'])-1), $last['0']);
+        $last_domain = str_replace(substr($last['0'], '1'), str_repeat('*', strlen($last['0']) - 1), $last['0']);
+
         return $first.'@'.$last_domain.'.'.$last['1'];
     }
 

@@ -22,6 +22,7 @@ class VisitorFactory extends Factory
     public function definition()
     {
         $date = $this->faker->dateTimeBetween(now()->subDays(22), now()->addDays(2));
+
         return [
             'phone' => $this->faker->phoneNumber,
             'email' => $this->faker->email,

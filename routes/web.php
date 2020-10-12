@@ -13,15 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-
 Route::post('visitor', [\App\Http\Controllers\VisitorController::class, 'store'])->name('visitor.store');
 
 Route::group(
     [
         'middleware' => ['auth:sanctum', 'verified'],
         'prefix' => 'dashboard',
-        'as' => 'dashboard.'
+        'as' => 'dashboard.',
     ],
     function () {
         Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index'])->name('index');
