@@ -16,6 +16,7 @@ class Visitor extends Model
         'phone',
         'postcode',
         'extra_guests',
+        'duration_of_stay'
     ];
 
     public function scopeToday($query)
