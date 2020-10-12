@@ -5,13 +5,13 @@ namespace Tests\Feature;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class UserTest extends TestCase
 {
-    use WithFaker;
+    use WithFaker, RefreshDatabase;
 
     public function setUp(): void
     {
@@ -24,19 +24,19 @@ class UserTest extends TestCase
      *
      * @return void
      */
-    public function testUserCanSeeIndex()
+    public function testCanSeeIndex()
     {
-        $this->get(route('dashboard.user.index'))->assertStatus(200);
+        $this->actingAs($this->user)->get(route('dashboard.user.index'))->assertStatus(200);
     }
 
-    public function testUserCanSeeCreate()
+    public function testCanSeeCreate()
     {
-        $this->get(route('dashboard.user.create'))->assertStatus(200);
+        $this->actingAs($this->user)->get(route('dashboard.user.create'))->assertStatus(200);
     }
 
-    public function testUserCanCreateUser()
+    public function testCanCreateUser()
     {
-        $this
+        $this->actingAs($this->user)
             ->post(
                 route('dashboard.user.store'),
                 [
@@ -56,9 +56,9 @@ class UserTest extends TestCase
             );
     }
 
-    public function testUserCanNotBeCreatedWithoutRequiredData()
+    public function testCanNotBeCreatedWithoutRequiredData()
     {
-        $this
+        $this->actingAs($this->user)
             ->post(
                 route('dashboard.user.store'),
                 [
@@ -66,7 +66,6 @@ class UserTest extends TestCase
                     'password' => Str::random(12)
                 ]
             )
-            ->assertStatus(204)
             ->assertSessionHasErrors('name');
 
         $this
@@ -77,7 +76,6 @@ class UserTest extends TestCase
                     'password' => Str::random(12)
                 ]
             )
-            ->assertStatus(204)
             ->assertSessionHasErrors('email');
 
         $this
@@ -88,7 +86,13 @@ class UserTest extends TestCase
                     'email' => $this->faker->email,
                 ]
             )
-            ->assertStatus(204)
             ->assertSessionHasErrors('password');
+    }
+
+    public function testCanBeDeleted()
+    {
+        $user = User::factory()->create();
+
+        $this->delete(route('dashboard.user.destroy', $user))->assertStatus(302);
     }
 }
