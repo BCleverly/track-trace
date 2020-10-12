@@ -9,7 +9,7 @@ This is an open source MIT licensed website to allow for easy track and trace fo
 
 ## Requirements
 - [Laravel 8 requirements](https://laravel.com/docs/8.x/installation#server-requirements)
-- PHP 7.3 and up
+- PHP 7.4 and up
 - NodeJS v12.19 - previous versions may work but not tested
 - Maria/MySql database, other datebases may work but not tested
 - Superviors if running on a *nix box to allow for the scheduled task.
