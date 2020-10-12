@@ -6,6 +6,7 @@ This is an open source MIT licensed website to allow for easy track and trace fo
 1. Data export for when you need to contact people (CSV/Excel/JSON)
 1. Add unit tests
 1. Investigate an install wizard for non cli installed
+1. Add venue via CLI
 
 ## Requirements
 - [Laravel 8 requirements](https://laravel.com/docs/8.x/installation#server-requirements)
@@ -36,6 +37,7 @@ stdout_logfile=/home/forge/app.com/worker.log
 stopwaitsecs=3600
 ```
 1. If you can't use supervisor, then please set this in the env file to false `APP_SUPERVISOR_IN_USE=false`. This will trigger the command once per day at the start of the day. Uses the cache system to determine when to run, and sets the `ttl` to the end of the day.
+1. Once you have an account, you can get to the dashboard by going to `/dashboard` or `/login`
 
 ## Commands
 - `php artisan user:create` - Creates a user account
