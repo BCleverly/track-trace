@@ -34,7 +34,6 @@ class GenerateVenueQrCodes extends Command
     public function __construct()
     {
         parent::__construct();
-        $this->venues = Venue::all();
     }
 
     /**
@@ -51,6 +50,10 @@ class GenerateVenueQrCodes extends Command
 //                $this->info($e->getMessage());
 //            }
 //        }
+
+        //  Return all venues.
+        $this->venues = Venue::all();
+
         $bar = $this->output->createProgressBar($this->venues->count());
         $bar->start();
         $this->venues->each(
