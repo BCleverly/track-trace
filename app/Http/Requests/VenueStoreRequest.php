@@ -25,11 +25,11 @@ class VenueStoreRequest extends FormRequest
     {
         return [
             'name' => [
-                'required'
+                'required',
             ],
             'active' => [
-                'nullable'
-            ]
+                'nullable',
+            ],
         ];
     }
 }

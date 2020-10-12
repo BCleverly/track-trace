@@ -60,11 +60,12 @@ class GenerateVenueQrCodes extends Command
                     new SvgImageBackEnd()
                 );
                 $writer = new Writer($renderer);
-                $writer->writeFile(route('index.venue', $venue), storage_path('app/public/venues/' . $venue->slug . '.svg'));
+                $writer->writeFile(route('index.venue', $venue), storage_path('app/public/venues/'.$venue->slug.'.svg'));
                 $bar->advance();
             }
         );
         $bar->finish();
+
         return 0;
     }
 }

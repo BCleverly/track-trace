@@ -19,10 +19,11 @@ class RemoveVisitorsOutOfRetention
     public function handle(Request $request, Closure $next)
     {
         if (config('app.supervisor') === false) {
-            Cache::remember('manual-visitor-remove', now()->secondsUntilEndOfDay(), function() {
+            Cache::remember('manual-visitor-remove', now()->secondsUntilEndOfDay(), function () {
                 Artisan::call('visitors:remove-old');
             });
         }
+
         return $next($request);
     }
 }

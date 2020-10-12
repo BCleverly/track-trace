@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\{User, Venue};
+use App\Models\User;
+use App\Models\Venue;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -20,14 +21,14 @@ class DatabaseSeeder extends Seeder
                 [
                     'name' => 'Test user',
                     'email' => 'example@example.dev',
-                    'password' => Hash::make('password')
+                    'password' => Hash::make('password'),
                 ]
             );
 
             Venue::factory()->hasVisitors(50)->create(
                 [
                     'name' => 'Some pub',
-                    'active' => true
+                    'active' => true,
                 ]
             );
 

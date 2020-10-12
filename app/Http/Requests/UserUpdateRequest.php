@@ -27,16 +27,16 @@ class UserUpdateRequest extends FormRequest
             'name' => [
                 'required',
                 'min:3',
-                'string'
+                'string',
             ],
             'email' => [
                 'required',
-                'email'
+                'email',
             ],
             'password' => [
                 'nullable',
-                'min:8'
-            ]
+                'min:8',
+            ],
         ];
     }
 }

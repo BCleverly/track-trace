@@ -26,24 +26,24 @@ class StoreVisitorRequest extends FormRequest
         return [
             'venue_id' => [
                 'integer',
-                'exists:venues,id'
+                'exists:venues,id',
             ],
             'email' => [
-                'required'
+                'required',
             ],
             'phone' => [
-                'required'
+                'required',
             ],
             'postcode' => [
                 'required',
-                'postal_code:GB'
+                'postal_code:GB',
             ],
             'extra_guests' => [
-                'integer'
+                'integer',
             ],
             'duration_of_stay' => [
-                'required'
-            ]
+                'required',
+            ],
         ];
     }
 }

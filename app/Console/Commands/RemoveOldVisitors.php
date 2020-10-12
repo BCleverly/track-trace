@@ -44,7 +44,8 @@ class RemoveOldVisitors extends Command
         } catch (\Exception $e) {
             $this->error('Something went wrong...');
         }
-        $this->info('Successfully removed ' . $oldVisitors->count() . ' visitors.');
+        $this->info('Successfully removed '.$oldVisitors->count().' visitors.');
+
         return 0;
     }
 }
