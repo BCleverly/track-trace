@@ -33,18 +33,21 @@ class DashboardController extends Controller
                     ->first();
             }
         );
+
         return view('dashboard', compact('totalVisitors', 'popularVenue'));
     }
 
     public function uploadLogo(LogoUploadRequest $request)
     {
-        $request->file('logo')->storePubliclyAs('public', 'logo.' . $request->file('logo')->getClientOriginalExtension());
+        $request->file('logo')->storePubliclyAs('public', 'logo.'.$request->file('logo')->getClientOriginalExtension());
+
         return response()->redirectToRoute('dashboard.index')->with('status', 'Logo uploaded.');
     }
 
     public function deleteLogo(Request $request)
     {
         $status = Storage::disk('public')->delete('logo.png');
+
         return response()->redirectToRoute('dashboard.index')->with('status', 'Logo deleted.');
     }
 }

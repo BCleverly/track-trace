@@ -27,16 +27,16 @@ class UserStoreRequest extends FormRequest
             'name' => [
                 'required',
                 'min:3',
-                'string'
+                'string',
             ],
             'email' => [
                 'required',
-                'email'
+                'email',
             ],
             'password' => [
                 'required',
-                'min:8'
-            ]
+                'min:8',
+            ],
         ];
     }
 }

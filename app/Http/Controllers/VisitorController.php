@@ -16,6 +16,7 @@ class VisitorController extends Controller
     public function index()
     {
         $visitors = Visitor::all();
+
         return view('visitor.index', compact('visitors'));
     }
 
@@ -84,6 +85,5 @@ class VisitorController extends Controller
      */
     public function destroy(Visitor $visitor)
     {
-
     }
 }

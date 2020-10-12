@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -18,6 +17,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::where('id', '!=', auth()->user()->id)->paginate(25);
+
         return view('user.index', compact('users'));
     }
 
@@ -89,7 +89,7 @@ class UserController extends Controller
         if ($request->has('password')) {
             $user->update(
                 [
-                    'password' => Hash::make($request->validated()['password'])
+                    'password' => Hash::make($request->validated()['password']),
                 ]
             );
         }
@@ -106,6 +106,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
+
         return response()->redirectToRoute('dashboard.user.index')->with('status', 'User deleted.');
     }
 }
