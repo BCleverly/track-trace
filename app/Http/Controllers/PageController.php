@@ -17,9 +17,9 @@ class PageController extends Controller
         }
 
         /**
-         * If the venue is disabled throw a 404
+         * If the venue is disabled throw a 404.
          */
-        abort_if($venue && !$venue->active, 404);
+        abort_if($venue && ! $venue->active, 404);
 
         $venues = Venue::active()->get();
 
