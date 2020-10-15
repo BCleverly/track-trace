@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class CreateVenueCommandTest extends TestCase
@@ -31,7 +30,7 @@ class CreateVenueCommandTest extends TestCase
 
         $this->assertDatabaseHas('venues', [
             'name' => 'A pub',
-            'active' => false
+            'active' => false,
         ]);
     }
 
@@ -43,7 +42,7 @@ class CreateVenueCommandTest extends TestCase
 
         $this->assertDatabaseHas('venues', [
             'name' => 'A pub',
-            'active' => true
+            'active' => true,
         ]);
     }
 }
