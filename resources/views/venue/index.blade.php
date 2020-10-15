@@ -56,10 +56,8 @@
                     @endforeach
                     </tbody>
                 </table>
-
-
-                {{ $venues->links() }}
             </div>
+            {{ $venues->links() }}
         </div>
     </div>
 </x-app-layout>

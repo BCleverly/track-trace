@@ -30,7 +30,7 @@
 
                     <div class="flex flex-col">
                         <label class="inline-flex items-center mt-3 cursor-pointer" for="active">
-                            <input value="true" type="checkbox" name="active" id="active" class="form-checkbox h-5 w-5 text-gray-600" {{ old('active', $venue->active) === true ? 'checked' : '' }}><span class="ml-2 text-gray-700">Active</span>
+                            <input value="true" type="checkbox" name="active" id="active" class="form-checkbox h-5 w-5 text-gray-600" {{ (bool)old('active', $venue->active) === true ? 'checked' : '' }}><span class="ml-2 text-gray-700">Active</span>
                         </label>
                     </div>
 

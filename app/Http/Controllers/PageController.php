@@ -16,6 +16,11 @@ class PageController extends Controller
             $this->generateQrCode(config('app.url'), storage_path('app/public/qrcode.svg'));
         }
 
+        /**
+         * If the venue is disabled throw a 404
+         */
+        abort_if($venue && !$venue->active, 404);
+
         $venues = Venue::active()->get();
 
         $qrCodePath = $venue !== null ? storage_path('app/public/venues/'.$venue->slug.'.svg') : storage_path(
