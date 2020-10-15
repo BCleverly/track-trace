@@ -2,10 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Models\User;
 use App\Models\Venue;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Hash;
 
 class CreateVenue extends Command
 {
