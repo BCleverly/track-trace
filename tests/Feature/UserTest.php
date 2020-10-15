@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -42,7 +41,7 @@ class UserTest extends TestCase
                 [
                     'name' => $this->faker->name,
                     'email' => $this->faker->email,
-                    'password' => Str::random(12)
+                    'password' => Str::random(12),
                 ]
             )
             ->assertStatus(302)
@@ -51,7 +50,7 @@ class UserTest extends TestCase
                 [
                     'name',
                     'email',
-                    'password'
+                    'password',
                 ]
             );
     }
@@ -63,7 +62,7 @@ class UserTest extends TestCase
                 route('dashboard.user.store'),
                 [
                     'email' => $this->faker->email,
-                    'password' => Str::random(12)
+                    'password' => Str::random(12),
                 ]
             )
             ->assertSessionHasErrors('name');
@@ -73,7 +72,7 @@ class UserTest extends TestCase
                 route('dashboard.user.store'),
                 [
                     'name' => $this->faker->name,
-                    'password' => Str::random(12)
+                    'password' => Str::random(12),
                 ]
             )
             ->assertSessionHasErrors('email');

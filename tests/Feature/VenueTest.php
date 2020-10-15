@@ -44,7 +44,7 @@ class VenueTest extends TestCase
         $this->actingAs($this->user)->post(
             route('dashboard.venue.store'),
             [
-                'name' => $this->faker->company
+                'name' => $this->faker->company,
             ]
         )->assertStatus(302);
 
@@ -52,7 +52,7 @@ class VenueTest extends TestCase
             route('dashboard.venue.store'),
             [
                 'name' => $this->faker->company,
-                'active' => $this->faker->boolean
+                'active' => $this->faker->boolean,
             ]
         )->assertStatus(302);
     }
@@ -63,7 +63,7 @@ class VenueTest extends TestCase
         $this->actingAs($this->user)->patch(
             route('dashboard.venue.update', $venue),
             [
-                'name' => 'new name'
+                'name' => 'new name',
             ]
         )->assertStatus(302);
 
@@ -71,7 +71,7 @@ class VenueTest extends TestCase
             'venues',
             [
                 'id' => $venue->id,
-                'name' => 'new name'
+                'name' => 'new name',
             ]
         );
     }
