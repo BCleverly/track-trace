@@ -6,7 +6,6 @@ This is an open source MIT licensed website to allow for easy track and trace fo
 1. Data export for when you need to contact people (CSV/Excel/JSON)
 1. Add unit tests
 1. Investigate an install wizard for non cli installed
-1. Add venue via CLI
 
 ## Requirements
 - [Laravel 8 requirements](https://laravel.com/docs/8.x/installation#server-requirements)
