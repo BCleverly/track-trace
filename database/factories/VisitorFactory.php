@@ -30,12 +30,11 @@ class VisitorFactory extends Factory
             'extra_guests' => $this->faker->numberBetween(0, 5),
             'duration_of_stay' => $this->faker->randomElement(
                 [
-                    '30-minutes',
-                    '1-hour',
-                    '2-hour',
-                    '3-hour',
-                    '4-plus',
-                    'unsure',
+                    '30',
+                    '60',
+                    '120',
+                    '180',
+                    '240'
                 ]
             ),
             'created_at' => $date,

@@ -102,12 +102,11 @@
                                     <div class="relative  py-2 mb-4">
                                         <select name="duration_of_stay" id="duration_of_stay"
                                                 class="block appearance-none w-full bg-white border border-gray-400 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                                            <option value="30-minutes">Under 30 minutes</option>
-                                            <option value="1-hour">One hour</option>
-                                            <option value="2-hour">Two hours</option>
-                                            <option value="3-hour">Three hours</option>
-                                            <option value="4-plus">4 plus</option>
-                                            <option value="unsure">Unsure</option>
+                                            <option value="30">Under 30 minutes</option>
+                                            <option value="60">One hour</option>
+                                            <option value="120">Two hours</option>
+                                            <option value="180">Three hours</option>
+                                            <option value="240">4 plus</option>
                                         </select>
                                         <div
                                             class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
