@@ -44,4 +44,9 @@ class Visitor extends Model
         // TODO mask postcodes
         return $this->attributes['postcode'];
     }
+
+    public function venue()
+    {
+        return $this->belongsTo(Venue::class);
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Visitor;
 use App\Models\Venue;
 use App\Models\Visitor;
 use Carbon\Carbon;
+use League\Csv\Writer;
 use Livewire\Component;
 
 class Export extends Component
@@ -32,6 +33,9 @@ class Export extends Component
         'getSeedList'
     ];
 
+    /**
+     * @var \Illuminate\Database\Eloquent\Collection
+     */
     public $seedList = [];
 
     public function mount()
@@ -52,7 +56,6 @@ class Export extends Component
      */
     public function getVisitors()
     {
-
         $date = Carbon::createFromFormat('d-m-y', $this->visitDate);
 
         $this->visitors = Visitor::where(
@@ -70,14 +73,19 @@ class Export extends Component
     {
         $visitor = Visitor::find($this->visitor);
         $venue = Venue::find($this->venue);
-        $date = new Carbon($visitor->created_at);
 
         $this->seedList = Visitor::where(
             [
                 ['created_at', '>=', $visitor->created_at],
-                ['created_at', '<=', $date->addMinutes($visitor->duration_of_stay)],
+                ['created_at', '<=', $visitor->created_at->addMinutes($visitor->duration_of_stay)],
                 ['venue_id', $venue->id],
-                ['id', '!=', $visitor->id]
+//                ['id', '!=', $visitor->id]
+            ]
+        )->with(
+            [
+                'venue' => function($query) {
+                    $query->select('id', 'name');
+                }
             ]
         )->get();
 
@@ -94,8 +102,50 @@ class Export extends Component
         return $this;
     }
 
-    public function exportList()
+    public function export()
     {
-        dump('hello world');
+        if ($this->exportType === 'csv') {
+            return $this->exportAsCsv();
+        }
+        if ($this->exportType === 'json') {
+            return $this->exportAsJson();
+        }
+    }
+
+    private function exportAsCsv()
+    {
+        $csv = Writer::createFromString();
+
+        $csv->insertAll(
+            $this->seedList->reduce(
+                function ($data, $visitor) {
+                    $data[] = [
+                        $visitor->email,
+                        $visitor->phone,
+                        $visitor->postcode,
+                        $visitor->created_at,
+                    ];
+                    return $data;
+                },
+                [['email', 'phone', 'postcode', 'created_at']]
+            )
+        );
+
+        return response()->streamDownload(
+            function () use ($csv) {
+                echo (string)$csv;
+            },
+            'export.csv'
+        );
+    }
+
+    private function exportAsJson()
+    {
+        return response()->streamDownload(
+            function () {
+                echo (string)$this->seedList->map->only(['email', 'phone', 'postcode', 'created_at']);
+            },
+            'export.json'
+        );
     }
 }

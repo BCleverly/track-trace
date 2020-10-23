@@ -46,7 +46,7 @@
                 <option value="json">JSON</option>
                 <option value="xml">XML</option>
             </select>
-            <button wire:click="exportList">Export</button>
+            <button wire:click="export">Export</button>
         </div>
     </div>
 </div>

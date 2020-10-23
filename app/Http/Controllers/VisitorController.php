@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreVisitorRequest;
 use App\Models\Visitor;
 use Illuminate\Http\Request;
+use League\Csv\Writer;
 
 class VisitorController extends Controller
 {
@@ -83,5 +84,10 @@ class VisitorController extends Controller
      */
     public function destroy(Visitor $visitor)
     {
+    }
+
+    public function export(string $type = 'csv')
+    {
+
     }
 }

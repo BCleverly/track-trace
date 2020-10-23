@@ -24,6 +24,8 @@ Route::group(
     function () {
         Route::get('/', [\App\Http\Controllers\DashboardController::class, 'index'])->name('index');
 
+        Route::get('visitor/export', [\App\Http\Controllers\VisitorController::class, 'export'])->name('visitor.export');
+
         Route::resources(
             [
                 'venue' => \App\Http\Controllers\VenueController::class,
@@ -34,6 +36,7 @@ Route::group(
 
         Route::post('logo', [\App\Http\Controllers\DashboardController::class, 'uploadLogo'])->name('logo.upload');
         Route::delete('logo', [\App\Http\Controllers\DashboardController::class, 'deleteLogo'])->name('logo.delete');
+
     }
 );
 
