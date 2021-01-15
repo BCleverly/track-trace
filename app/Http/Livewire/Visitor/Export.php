@@ -30,18 +30,19 @@ class Export extends Component
 
     protected $listeners = [
         'getVisitors',
-        'getSeedList'
+        'getVisitorList'
     ];
 
     /**
-     * @var \Illuminate\Database\Eloquent\Collection
+     * @var mixed
      */
-    public $seedList = [];
+    public $visitorList;
 
     public function mount()
     {
         $this->visitDate = now()->format('d-m-y');
         $this->getVenues();
+        $this->visitorList = collect();
     }
 
     public function render()
@@ -69,26 +70,39 @@ class Export extends Component
         return $this;
     }
 
-    public function getSeedList()
+    public function getVisitorList()
     {
         $visitor = Visitor::find($this->visitor);
         $venue = Venue::find($this->venue);
 
-        $this->seedList = Visitor::where(
+        $this->visitorList = Visitor::where(
             [
                 ['created_at', '>=', $visitor->created_at],
                 ['created_at', '<=', $visitor->created_at->addMinutes($visitor->duration_of_stay)],
                 ['venue_id', $venue->id],
-//                ['id', '!=', $visitor->id]
+                ['id', '!=', $visitor->id]
             ]
         )->with(
             [
-                'venue' => function($query) {
+                'venue' => function ($query) {
                     $query->select('id', 'name');
                 }
             ]
         )->get();
 
+        $pastVisitors = Visitor::where(
+            [
+                ['created_at', '<=', $visitor->created_at],
+                ['venue_id', $venue->id],
+                ['id', '!=', $visitor->id],
+            ]
+        )->with('venue')->get()->filter(
+            function ($pastVisitor) use ($visitor) {
+                return $pastVisitor->created_at->addMinutes($pastVisitor->duration_of_stay) >= $visitor->created_at;
+            }
+        );
+
+        $this->visitorList->merge($pastVisitors);
     }
 
     /**
@@ -104,6 +118,7 @@ class Export extends Component
 
     public function export()
     {
+        $this->getVisitorList();
         if ($this->exportType === 'csv') {
             return $this->exportAsCsv();
         }
@@ -117,17 +132,18 @@ class Export extends Component
         $csv = Writer::createFromString();
 
         $csv->insertAll(
-            $this->seedList->reduce(
+            $this->visitorList->reduce(
                 function ($data, $visitor) {
                     $data[] = [
                         $visitor->email,
                         $visitor->phone,
                         $visitor->postcode,
                         $visitor->created_at,
+                        $visitor->venue->name
                     ];
                     return $data;
                 },
-                [['email', 'phone', 'postcode', 'created_at']]
+                [['email', 'phone', 'postcode', 'created_at', 'venue']]
             )
         );
 
@@ -141,9 +157,10 @@ class Export extends Component
 
     private function exportAsJson()
     {
+
         return response()->streamDownload(
             function () {
-                echo (string)$this->seedList->map->only(['email', 'phone', 'postcode', 'created_at']);
+                echo (string)$this->visitorList->map->only(['email', 'phone', 'postcode', 'created_at', 'venue:name']);
             },
             'export.json'
         );

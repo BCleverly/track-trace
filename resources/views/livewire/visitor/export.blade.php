@@ -25,7 +25,7 @@
                 Visitor
             </label>
             <div class="relative">
-                <select wire:change="getSeedList" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="venues" name="venues" wire:model="visitor">
+                <select wire:change="getVisitorList" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="venues" name="venues" wire:model="visitor">
                     <option value="">Pick a visitor</option>
                     @foreach($visitors as $item)
                         <option value="{{ $item->id}}">{{ $item->postcode }}</option>
@@ -38,7 +38,7 @@
         </div>
     </div>
     <div>
-        <p>Total people to be contacted: {{ count($seedList) }}</p>
+        <p>Total people to be contacted: {{ count($visitorList) }}</p>
         <div>
             <label for="exportAs">Export:</label>
             <select name="exportAs" id="exportAs" wire:model="exportType">
